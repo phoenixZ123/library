@@ -1,0 +1,29 @@
+*{
+    padding:0px;
+    margin:0px;
+    box-sizing:border-box;
+}
+
+nav{
+    display:flex;
+    justify-content:space-between; 
+    padding:4px;
+}
+.active{
+    color:#23afaf;
+}
+
+.fade-enter {
+  opacity: 0;
+}
+.fade-enter-active {
+  opacity: 1;
+  transition: opacity 200ms;
+}
+.fade-exit {
+  opacity: 0;
+}
+.fade-exit-active {
+  opacity: 0;
+  transition: opacity 200ms;
+}
