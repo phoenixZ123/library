@@ -16,7 +16,6 @@ export const BookDetail = () => {
       }, 1000);
     }
   }, [error, navigate]);
-  
 
   return (
     <div>
