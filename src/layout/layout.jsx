@@ -19,7 +19,7 @@ export const Layout = () => {
           classNames={"fade"}
           key={location.pathname}
         >
-          <div className="lg:ml-[170px] md:ml-10 w-[685px] absolute z-1 mt-10">
+          <div className="lg:ml-[170px] md:ml-10  w-[685px] absolute z-1 mt-10">
             <Outlet />
           </div>
         </CSSTransition>

@@ -37,7 +37,7 @@
       "title": "Moby-Dick",
       "author": "Herman Melville",
       "description": "The epic tale of Captain Ahab's obsession with the white whale.",
-      "image": "",
+      "image": "/src/assets/five.jpg",
       "genres": ["Fiction", "Adventure"]
     },
     {
@@ -45,7 +45,7 @@
       "title": "The Lord of the Rings",
       "author": "J.R.R. Tolkien",
       "description": "An epic fantasy saga about the quest to destroy the One Ring.",
-      "image": "",
+      "image": "/src/assets/six.jpg",
       "genres": ["Fantasy", "Adventure"]
     },
     {
@@ -53,7 +53,7 @@
       "title": "The Catcher in the Rye",
       "author": "J.D. Salinger",
       "description": "A classic coming-of-age novel following Holden Caulfield's journey.",
-      "image": "",
+      "image": "/src/assets/seven.jpg",
       "genres": ["Fiction", "Coming-of-age"]
     },
     {
@@ -61,7 +61,7 @@
       "title": "The Hobbit",
       "author": "J.R.R. Tolkien",
       "description": "The prequel to The Lord of the Rings, following Bilbo Baggins' journey.",
-      "image": "",
+      "image": "/src/assets/eight.jpg",
       "genres": ["Fantasy", "Adventure"]
     },
     {
@@ -69,7 +69,7 @@
       "title": "One Hundred Years of Solitude",
       "author": "Gabriel Garcia Marquez",
       "description": "A multi-generational saga of the Buendía family in the fictional town of Macondo.",
-      "image": "",
+      "image": "/src/assets/nine.jpg",
       "genres": ["Magical Realism", "Literary Fiction"]
     },
     {
@@ -77,7 +77,7 @@
       "title": "War and Peace",
       "author": "Leo Tolstoy",
       "description": "A monumental work depicting the events of Russian society during the Napoleonic era.",
-      "image": "",
+      "image": "/src/assets/ten.jpg",
       "genres": ["Historical Fiction", "Epic"]
     },
     {
@@ -85,7 +85,7 @@
       "title": "The Odyssey",
       "author": "Homer",
       "description": "An ancient Greek epic poem recounting Odysseus' ten-year journey home after the Trojan War.",
-      "image": "",
+      "image": "/src/assets/eleven.jpg",
       "genres": ["Epic", "Mythology"]
     },
     {
@@ -93,7 +93,7 @@
       "title": "The Divine Comedy",
       "author": "Dante Alighieri",
       "description": "An epic poem that follows the journey of the soul through Hell, Purgatory, and Heaven.",
-      "image": "",
+      "image": "/src/assets/twelve.jpg",
       "genres": ["Epic", "Poetry"]
     },
     {
@@ -101,7 +101,7 @@
       "title": "The Brothers Karamazov",
       "author": "Fyodor Dostoevsky",
       "description": "A complex novel exploring themes of spirituality, morality, and human nature",
-      "image": "",
+      "image": "/src/assets/thirteen.jpg",
       "genres": ["Classic", "Philosophical Fiction"]
     },
     {
@@ -109,7 +109,7 @@
       "title": "Crime and Punishment",
       "author": "Fyodor Dostoevsky",
       "description": "A psychological thriller revolving around guilt, conscience, and redemption.",
-      "image": "",
+      "image": "/src/assets/forteen.jpg",
       "genres": ["Classic", "Psychological Fiction"]
     },
     {
@@ -117,7 +117,7 @@
       "title": "The Picture of Dorian Gray",
       "author": "Oscar Wilde",
       "description": "A novel about a man whose portrait ages while he retains his youth and beauty.",
-      "image": "",
+      "image": "/src/assets/fifteen.jpg",
       "genres": ["Gothic", "Philosophical Fiction"]
     },
     {
@@ -125,7 +125,7 @@
       "title": "Brave New World",
       "author": "Aldous Huxley",
       "description": "A dystopian vision of a future society obsessed with pleasure and conformity.",
-      "image": "",
+      "image": "/src/assets/sisteen.jpg",
       "genres": ["Dystopian", "Science Fiction"]
     },
     {
@@ -133,7 +133,7 @@
       "title": "The Count of Monte Cristo",
       "author": "Alexandre Dumas",
       "description": "An adventure novel of revenge, love, and redemption set in the early 19th century.",
-      "image": "",
+      "image": "/src/assets/seventeen.jpg",
       "genres": ["Adventure", "Historical Fiction"]
     },
     {
@@ -141,6 +141,7 @@
       "title": "Anna Karenina",
       "author": "Leo Tolstoy",
       "description": "The story centers on an extramarital affair between Anna and dashing cavalry. ",
+      "image":"/src/assets/eighteen.jpg",
       "genres": ["Classic", "Romance"]
     },
     {
@@ -148,7 +149,7 @@
       "title": "The Alchemist",
       "author": "Paulo Coelho",
       "description": "A philosophical novel about a shepherd boy's journey to find his personal legend.",
-      "image": "",
+      "image": "/src/assets/ninteen.jpg",
       "genres": ["Fiction", "Philosophical"]
     },
     {
@@ -156,7 +157,7 @@
       "title": "The Adventures of Huckleberry Finn",
       "author": "Mark Twain",
       "description": "A satirical novel following Huck Finn's journey down the Mississippi River.",
-      "image": "",
+      "image": "/src/assets/twenteen.jpg",
       "genres": ["Adventure", "Satire"]
     }
   ]
