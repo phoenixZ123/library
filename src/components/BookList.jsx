@@ -5,13 +5,13 @@ export const BookList = () => {
   let url = "http://localhost:2801/books";
 
   const { data: books, loading, error } = useFetch(url);
+  console.log(books);
   
   return (
     <>{error && <div>{error}</div>}
       {loading && <div className="">Loading ...</div>}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 my-3 ">
-        {!loading &&
-          !!books &&
+        {!!books &&
           books.map((data) => (
             <Link to={`http://localhost:5173/books/${data.id}`} key={data.id}>
               <div className="p-1 border-1 border ">

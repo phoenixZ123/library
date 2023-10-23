@@ -3,7 +3,7 @@ import user from "../assets/user.png";
 // import { Link } from "react-router-dom";
 export const Navbar = () => {
   return (
-    <nav className="container lg:ml-44 max-w-6xl border-b-2">
+    <nav className="container lg:ml-44  max-w-6xl border-b-2">
       <h3 className="flex items-center justify-center gap-3">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -79,7 +79,7 @@ export const Navbar = () => {
                 />
               </svg>
 
-              <span className="md:block hidden">Create</span>
+              <span className="md:block hidden">Create Book</span>
             </div>
           </NavLink>
         </button>

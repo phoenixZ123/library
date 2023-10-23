@@ -6,7 +6,10 @@
       "author": "Harper Lee",
       "description": "A classic novel depicting racial injustice in the American South.",
       "image": "/src/assets/one.jpg",
-      "genres": ["Fiction", "Classic"]
+      "genres": [
+        "Fiction",
+        "Classic"
+      ]
     },
     {
       "id": 2,
@@ -14,7 +17,10 @@
       "author": "George Orwell",
       "description": "A dystopian novel portraying a totalitarian society.",
       "image": "/src/assets/two.jpg",
-      "genres": ["Dystopian", "Science Fiction"]
+      "genres": [
+        "Dystopian",
+        "Science Fiction"
+      ]
     },
     {
       "id": 3,
@@ -22,7 +28,10 @@
       "author": "Jane Austen",
       "description": "A classic novel exploring themes of love, marriage, and social norms.",
       "image": "/src/assets/three.jpg",
-      "genres": ["Classic", "Romance"]
+      "genres": [
+        "Classic",
+        "Romance"
+      ]
     },
     {
       "id": 4,
@@ -30,7 +39,10 @@
       "author": "F. Scott Fitzgerald",
       "description": "A tale of the American Dream, wealth, and love during the Roaring Twenties.",
       "image": "/src/assets/four.jpg",
-      "genres": ["Fiction", "Classic"]
+      "genres": [
+        "Fiction",
+        "Classic"
+      ]
     },
     {
       "id": 5,
@@ -38,7 +50,10 @@
       "author": "Herman Melville",
       "description": "The epic tale of Captain Ahab's obsession with the white whale.",
       "image": "/src/assets/five.jpg",
-      "genres": ["Fiction", "Adventure"]
+      "genres": [
+        "Fiction",
+        "Adventure"
+      ]
     },
     {
       "id": 6,
@@ -46,7 +61,10 @@
       "author": "J.R.R. Tolkien",
       "description": "An epic fantasy saga about the quest to destroy the One Ring.",
       "image": "/src/assets/six.jpg",
-      "genres": ["Fantasy", "Adventure"]
+      "genres": [
+        "Fantasy",
+        "Adventure"
+      ]
     },
     {
       "id": 7,
@@ -54,7 +72,10 @@
       "author": "J.D. Salinger",
       "description": "A classic coming-of-age novel following Holden Caulfield's journey.",
       "image": "/src/assets/seven.jpg",
-      "genres": ["Fiction", "Coming-of-age"]
+      "genres": [
+        "Fiction",
+        "Coming-of-age"
+      ]
     },
     {
       "id": 8,
@@ -62,7 +83,10 @@
       "author": "J.R.R. Tolkien",
       "description": "The prequel to The Lord of the Rings, following Bilbo Baggins' journey.",
       "image": "/src/assets/eight.jpg",
-      "genres": ["Fantasy", "Adventure"]
+      "genres": [
+        "Fantasy",
+        "Adventure"
+      ]
     },
     {
       "id": 9,
@@ -70,7 +94,10 @@
       "author": "Gabriel Garcia Marquez",
       "description": "A multi-generational saga of the Buendía family in the fictional town of Macondo.",
       "image": "/src/assets/nine.jpg",
-      "genres": ["Magical Realism", "Literary Fiction"]
+      "genres": [
+        "Magical Realism",
+        "Literary Fiction"
+      ]
     },
     {
       "id": 10,
@@ -78,7 +105,10 @@
       "author": "Leo Tolstoy",
       "description": "A monumental work depicting the events of Russian society during the Napoleonic era.",
       "image": "/src/assets/ten.jpg",
-      "genres": ["Historical Fiction", "Epic"]
+      "genres": [
+        "Historical Fiction",
+        "Epic"
+      ]
     },
     {
       "id": 11,
@@ -86,7 +116,10 @@
       "author": "Homer",
       "description": "An ancient Greek epic poem recounting Odysseus' ten-year journey home after the Trojan War.",
       "image": "/src/assets/eleven.jpg",
-      "genres": ["Epic", "Mythology"]
+      "genres": [
+        "Epic",
+        "Mythology"
+      ]
     },
     {
       "id": 12,
@@ -94,7 +127,10 @@
       "author": "Dante Alighieri",
       "description": "An epic poem that follows the journey of the soul through Hell, Purgatory, and Heaven.",
       "image": "/src/assets/twelve.jpg",
-      "genres": ["Epic", "Poetry"]
+      "genres": [
+        "Epic",
+        "Poetry"
+      ]
     },
     {
       "id": 13,
@@ -102,7 +138,10 @@
       "author": "Fyodor Dostoevsky",
       "description": "A complex novel exploring themes of spirituality, morality, and human nature",
       "image": "/src/assets/thirteen.jpg",
-      "genres": ["Classic", "Philosophical Fiction"]
+      "genres": [
+        "Classic",
+        "Philosophical Fiction"
+      ]
     },
     {
       "id": 14,
@@ -110,7 +149,10 @@
       "author": "Fyodor Dostoevsky",
       "description": "A psychological thriller revolving around guilt, conscience, and redemption.",
       "image": "/src/assets/forteen.jpg",
-      "genres": ["Classic", "Psychological Fiction"]
+      "genres": [
+        "Classic",
+        "Psychological Fiction"
+      ]
     },
     {
       "id": 15,
@@ -118,7 +160,10 @@
       "author": "Oscar Wilde",
       "description": "A novel about a man whose portrait ages while he retains his youth and beauty.",
       "image": "/src/assets/fifteen.jpg",
-      "genres": ["Gothic", "Philosophical Fiction"]
+      "genres": [
+        "Gothic",
+        "Philosophical Fiction"
+      ]
     },
     {
       "id": 16,
@@ -126,7 +171,10 @@
       "author": "Aldous Huxley",
       "description": "A dystopian vision of a future society obsessed with pleasure and conformity.",
       "image": "/src/assets/sisteen.jpg",
-      "genres": ["Dystopian", "Science Fiction"]
+      "genres": [
+        "Dystopian",
+        "Science Fiction"
+      ]
     },
     {
       "id": 17,
@@ -134,15 +182,21 @@
       "author": "Alexandre Dumas",
       "description": "An adventure novel of revenge, love, and redemption set in the early 19th century.",
       "image": "/src/assets/seventeen.jpg",
-      "genres": ["Adventure", "Historical Fiction"]
+      "genres": [
+        "Adventure",
+        "Historical Fiction"
+      ]
     },
     {
       "id": 18,
       "title": "Anna Karenina",
       "author": "Leo Tolstoy",
       "description": "The story centers on an extramarital affair between Anna and dashing cavalry. ",
-      "image":"/src/assets/eighteen.jpg",
-      "genres": ["Classic", "Romance"]
+      "image": "/src/assets/eighteen.jpg",
+      "genres": [
+        "Classic",
+        "Romance"
+      ]
     },
     {
       "id": 19,
@@ -150,7 +204,10 @@
       "author": "Paulo Coelho",
       "description": "A philosophical novel about a shepherd boy's journey to find his personal legend.",
       "image": "/src/assets/ninteen.jpg",
-      "genres": ["Fiction", "Philosophical"]
+      "genres": [
+        "Fiction",
+        "Philosophical"
+      ]
     },
     {
       "id": 20,
@@ -158,7 +215,10 @@
       "author": "Mark Twain",
       "description": "A satirical novel following Huck Finn's journey down the Mississippi River.",
       "image": "/src/assets/twenteen.jpg",
-      "genres": ["Adventure", "Satire"]
+      "genres": [
+        "Adventure",
+        "Satire"
+      ]
     }
   ]
 }
