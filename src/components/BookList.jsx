@@ -1,11 +1,16 @@
 import { Link } from "react-router-dom";
 import { useFetch } from "../hooks/useFetch";
+import { useLocation } from "react-router-dom";
 
 export const BookList = () => {
-  let url = "http://localhost:2801/books";
+  let location=useLocation();
+  let params=new URLSearchParams(location.search);
+
+  let search=params.get('search');
+  let url = `http://localhost:2801/books/${search ? `?q=${search}` : ''}`;
 
   const { data: books, loading, error } = useFetch(url);
-  console.log(books);
+  // console.log(books);
   
   return (
     <>{error && <div>{error}</div>}

@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 export const Create = () => {
   let { setPostData ,data:book} = useFetch(" http://localhost:2801/books","POST");
+  let{loading}=useFetch("http://localhost:2801/books");
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [description, setDescription] = useState("");
@@ -40,8 +41,9 @@ if(book){
   navigate("/")
 }
   },[book])
-  return (
-    <form className="md:max-w-lg mx-auto mt-5" onSubmit={addBook}>
+  return (<>
+  
+  <form className="md:max-w-lg mx-auto mt-5" onSubmit={addBook}>
       <div className="grid grid-cols-1 space-y-1">
         {/* title */}
         <div className="w-96 px-1">
@@ -142,7 +144,7 @@ if(book){
             />
           </div>
         </div>
-        {/* add book btn*/}
+        {/* add book btn*/}  
         <button className="w-full bg-primary cursor-pointer px-2 py-4 font-semibold rounded-xl h-6 text-white w-18 text-[15px] flex justify-center items-center">
           <div className="flex items-center justify-center">
             <svg
@@ -164,6 +166,7 @@ if(book){
           </div>
         </button>
       </div>
-    </form>
+    </form> </>
+    
   );
 };

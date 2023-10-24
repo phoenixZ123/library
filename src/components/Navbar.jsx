@@ -1,7 +1,18 @@
 import { NavLink } from "react-router-dom";
 import user from "../assets/user.png";
-// import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 export const Navbar = () => {
+
+  let navigate=useNavigate();
+
+  const handleSearch=()=>{
+    console.log(search);
+    navigate('/?search='+search);
+  }
+ 
+  const[search,setSearch]=useState('');
   return (
     <nav className="container lg:ml-44  max-w-6xl border-b-2">
       <h3 className="flex items-center justify-center gap-3">
@@ -16,15 +27,9 @@ export const Navbar = () => {
         <div className="text-primary font-bold text-lg hidden md:block">
           Book Store
         </div>
+        {/* search input btn */}
         <div className="flex items-center">
-          <input
-            className="text-sm outline-none hover:animate-pulse bg-transparent p-1 rounded-md"
-            type="text"
-            placeholder="Search books title"
-          />
-          <button className="rounded-sm text-[12px] -ml-4">
-            <NavLink to="/search"> 
-              <svg
+        <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
@@ -38,7 +43,16 @@ export const Navbar = () => {
                   d="M15.75 15.75l-2.489-2.489m0 0a3.375 3.375 0 10-4.773-4.773 3.375 3.375 0 004.774 4.774zM21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                 />
               </svg>
-            </NavLink>
+          <input onChange={e=> setSearch(e.target.value)} value={search}
+            className="text-sm outline-none hover:animate-pulse bg-transparent p-1 rounded-md"
+            type="text"
+            placeholder="Search books title"
+          />
+          <button onClick={handleSearch} className="flex justify-center items-center text-[12px] bg-primary rounded-full -ml-4">      
+            
+            <div className="p-1">Search</div>
+
+            
           </button>
         </div>
       </h3>

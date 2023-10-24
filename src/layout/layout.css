@@ -9,9 +9,6 @@ nav{
     justify-content:space-between; 
     padding:4px;
 }
-.active{
-    color:#23afaf;
-}
 
 .fade-enter {
   opacity: 0;
