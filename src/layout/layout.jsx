@@ -1,17 +1,26 @@
-import { useLocation } from 'react-router-dom';
-import { Navbar } from '../components/Navbar';
-import './layout.css'
-import { Outlet } from 'react-router-dom';
-import {SwitchTransition,CSSTransition} from 'react-transition-group';
+import { useLocation } from "react-router-dom";
+import { Navbar } from "../components/Navbar";
+import "./layout.css";
+import { Outlet } from "react-router-dom";
+import { SwitchTransition, CSSTransition } from "react-transition-group";
+import { useTheme } from "../hooks/useTheme";
+import { useEffect } from "react";
 
 export const Layout = () => {
-  let location=useLocation();
+  let location = useLocation();
+  let { isDark } = useTheme();
 
+  useEffect(() => {
+    let body = document.body;
+    if (isDark) {
+      body.classList.add("bg-dbg");
+    } else {
+      body.classList.remove("bg-dbg");
+    }
+  }, [isDark]);
   return (
-    <div className="relative">
-      <div className=" fixed z-10 ">
-        <Navbar />
-      </div>
+    <div className={` ${isDark ? "bg-dbg" : "bg-white"} `}>
+      <Navbar />
 
       <SwitchTransition>
         <CSSTransition
@@ -19,11 +28,9 @@ export const Layout = () => {
           classNames={"fade"}
           key={location.pathname}
         >
-          <div className="lg:ml-[170px] md:ml-10  w-[685px] absolute z-1 mt-10">
-            <Outlet />
-          </div>
+          <Outlet />
         </CSSTransition>
       </SwitchTransition>
     </div>
   );
-}
+};

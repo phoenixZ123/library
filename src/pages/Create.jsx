@@ -20,6 +20,13 @@ export const Create = () => {
   const addGenres = () => {
     
     // client side
+
+    if(NewGenres && genres.includes(NewGenres)){
+      alert("should not same genres")
+      setNewGenres('')
+      return ;
+      
+    }
     setGenres((pre) => [...pre, NewGenres]);
     setNewGenres("");
   };
@@ -41,9 +48,9 @@ if(book){
   navigate("/")
 }
   },[book])
-  return (<>
+  return (<div className="h-screen">
   
-  <form className="md:max-w-lg mx-auto mt-5" onSubmit={addBook}>
+  <form className="max-w-lg mx-auto mt-5" onSubmit={addBook}>
       <div className="grid grid-cols-1 space-y-1">
         {/* title */}
         <div className="w-96 px-1">
@@ -166,7 +173,7 @@ if(book){
           </div>
         </button>
       </div>
-    </form> </>
+    </form> </div>
     
   );
 };

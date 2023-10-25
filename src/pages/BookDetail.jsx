@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import { useFetch } from "../hooks/useFetch";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import { useTheme } from "../hooks/useTheme";
 
 export const BookDetail = () => {
   let { id } = useParams();
@@ -17,10 +18,11 @@ export const BookDetail = () => {
     }
   }, [error, navigate]);
 
+  let {isDark}=useTheme();
   return (
-    <div>
+    <div className="h-screen">
       {book && (
-        <div className="grid grid-cols-2 text-left " key={book.id}>
+        <div className="grid grid-cols-2 sm:text-left md:ml-20" key={book.id}>
           <div className="space-y-2">
             <div className="  m-8 text-2xl font-bold text-slate-600 drop-shadow-xl shadow-red">
               {book.title}
@@ -34,9 +36,9 @@ export const BookDetail = () => {
                 </div>
               ))}
             </div>
-            <div>{book.description}</div>
+            <div className={`${isDark ? 'text-white': ''}`}>{book.description}</div>
           </div>
-          <img src={book.image} alt="" className="w-[80%]" />
+          <img src={book.image} alt="" className="w-[80%] h-[440px]" />
         </div>
       )}
     </div>

@@ -3,19 +3,28 @@ import user from "../assets/user.png";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-export const Navbar = () => {
+import { useContext } from "react";
+import { useTheme } from "../hooks/useTheme";
+import lightMode from '../assets/light.svg';
+import darkMode from '../assets/dark.svg';
 
+export const Navbar = () => {
+  const[search,setSearch]=useState('');
   let navigate=useNavigate();
 
   const handleSearch=()=>{
     console.log(search);
     navigate('/?search='+search);
+    setSearch('')
   }
- 
-  const[search,setSearch]=useState('');
+
+ let {changeTheme,isDark}=useTheme();
+
   return (
-    <nav className="container lg:ml-44  max-w-6xl border-b-2">
-      <h3 className="flex items-center justify-center gap-3">
+    <nav   className={` ${isDark ? 'bg-dbg' : 'bg-white'}  sm:max-w-3xl md:max-w-full  border-primary border-b-2 `} >
+      <div className="container mx-auto flex items-center justify-between gap-3">
+        {/* first show */}
+        <div className="flex items-center justify-center">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
@@ -27,7 +36,10 @@ export const Navbar = () => {
         <div className="text-primary font-bold text-lg hidden md:block">
           Book Store
         </div>
-        {/* search input btn */}
+        </div>
+        
+        <div className="flex items-center gap-2">
+          {/* search input btn */}
         <div className="flex items-center">
         <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -44,19 +56,17 @@ export const Navbar = () => {
                 />
               </svg>
           <input onChange={e=> setSearch(e.target.value)} value={search}
-            className="text-sm outline-none hover:animate-pulse bg-transparent p-1 rounded-md"
+            className="bg-white text-sm outline-none hover:animate-pulse text-black bg-transparent p-1 rounded-md"
             type="text"
             placeholder="Search books title"
           />
-          <button onClick={handleSearch} className="flex justify-center items-center text-[12px] bg-primary rounded-full -ml-4">      
+          <button onClick={handleSearch} className="active:bg-indigo-400 flex justify-center items-center text-[12px] bg-primary rounded-full ml-1">      
             
-            <div className="p-1">Search</div>
-
-            
+            <div className="p-1">Search</div>         
           </button>
         </div>
-      </h3>
-      <div className="flex items-center">
+        {/* right  */}
+        <div className="flex items-center">
         <button className="mr-3">
           <NavLink to="/">
             <svg
@@ -100,7 +110,14 @@ export const Navbar = () => {
         <div>
           <img src={user} className="w-8 h-8" alt="" />
         </div>
+        <div className="flex mx-1">
+          {isDark && <img src={lightMode} alt="" className="w-5 cursor-pointer" onClick={()=> changeTheme('light')}/>}
+          {!isDark && <img src={darkMode} alt="" className="w-5 cursor-pointer" onClick={()=> changeTheme('dark')}/> }
+        </div>
       </div>
+        </div>
+        
+      </div>     
     </nav>
   );
 };

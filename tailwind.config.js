@@ -5,7 +5,10 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: colors.indigo[600]
+        primary: colors.indigo[600],
+        dbg:'#05061B',
+        dcard:'#070E27'
+
       }
     },
   },

@@ -9,7 +9,9 @@ nav{
     justify-content:space-between; 
     padding:4px;
 }
-
+svg{
+  color:aqua;
+}
 .fade-enter {
   opacity: 0;
 }
