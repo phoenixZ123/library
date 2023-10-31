@@ -1,13 +1,15 @@
 // import React from 'react'
 
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { useState } from "react";
-import { useFetch } from "../hooks/useFetch";
+// import { useFetch } from "../hooks/useFetch";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { database } from "../firebase";
 
 export const Create = () => {
-  let { setPostData ,data:book} = useFetch(" http://localhost:2801/books","POST");
-  let{loading}=useFetch("http://localhost:2801/books");
+  // let { setPostData ,data:book} = useFetch(" http://localhost:2801/books","POST");
+  // let{loading}=useFetch("http://localhost:2801/books");
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [description, setDescription] = useState("");
@@ -30,6 +32,8 @@ export const Create = () => {
     setGenres((pre) => [...pre, NewGenres]);
     setNewGenres("");
   };
+  let navigate=useNavigate();
+
   const addBook = (e) => {
     e.preventDefault();
     let item = {
@@ -38,16 +42,14 @@ export const Create = () => {
       description,
       file,
       genres,
+      date:serverTimestamp()
     };
-    setPostData(item)
+    let ref=collection(database,"books")
+    addDoc(ref,item)
+    navigate("/")
   };
-let navigate=useNavigate();
-  useEffect(()=>{
-    // console.log("this is book ="+book);
-if(book){
-  navigate("/")
-}
-  },[book])
+
+
   return (<div className="h-screen">
   
   <form className="max-w-lg mx-auto mt-5" onSubmit={addBook}>

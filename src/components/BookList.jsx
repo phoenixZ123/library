@@ -1,19 +1,62 @@
 import { Link } from "react-router-dom";
 import { useFetch } from "../hooks/useFetch";
+import trash from "../assets/delete.svg";
 import { useLocation } from "react-router-dom";
 import { useTheme } from "../hooks/useTheme";
 import { transparent } from "tailwindcss/colors";
-
+import { useEffect } from "react";
+import {
+  collection,
+  deleteDoc,
+  doc,
+  getDocs,
+  orderBy,
+  query,
+} from "firebase/firestore";
+import { database } from "../firebase";
+import { useState } from "react";
 export const BookList = () => {
   let location = useLocation();
   let params = new URLSearchParams(location.search);
 
   let search = params.get("search");
-  let url = `http://localhost:2801/books/${search ? `?q=${search}` : ""}`;
+  // let url = `http://localhost:2801/books/${search ? `?q=${search}` : ""}`;
 
-  const { data: books, loading, error } = useFetch(url);
-  // console.log(books);
-  let{isDark}=useTheme();
+  // const { data: books, loading, error } = useFetch(url);
+  const [books, setBooks] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  useEffect(function () {
+    setLoading(true);
+    let books = [];
+    let ref = collection(database, "books");
+    let qry = query(ref, orderBy("date", "desc"));
+
+    getDocs(qry).then((data) => {
+      if (data.empty) {
+        setError("No result found");
+        setLoading(false);
+      }
+      if (data.empty == false) {
+        data.forEach((d) => {
+          books.push({ id: d.id, ...d.data() });
+        });
+        setBooks(books);
+        setLoading(false);
+        setError("");
+      }
+    });
+  }, []);
+
+  const deleteBook = async (e, id) => {
+    e.preventDefault();
+    let ref = doc(database, "books", id);
+    await deleteDoc(ref);
+    setBooks((prev) => prev.filter((p) => p.id != id));
+  };
+  let { isDark } = useTheme();
+
   return (
     <>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 my-2 ml-9">
@@ -22,19 +65,33 @@ export const BookList = () => {
         {!!books &&
           books.map((data) => (
             <Link to={`http://localhost:5173/books/${data.id}`} key={data.id}>
-              <div className={`p-1 border-1 border w-[180px] ${isDark ? 'bg-dcard border-primary text-white': 'bg-transparent'}`}>
+              <div
+                className={`p-1 border-1 border w-[180px] ${
+                  isDark
+                    ? "bg-dcard border-primary text-white"
+                    : "bg-transparent"
+                }`}
+              >
                 {/* <img src={user} /> */}
-                <img src={data.image} alt="" className="w-full h-[220px]"/>
+                <img src={data.image} alt="" className="w-full h-[220px]" />
                 <div className="space-y-2 text-center">
                   <div className="mt-2 text-md">{data.title} </div>
-                  <div className="flex flex-wrap m-1">
-                    {data.genres.map((g) => (
-                      <div key={g} className="m-[2px]">
-                        <span className=" rounded-full bg-blue-500 text-white p-1 text-[10px] ">
-                          {g}
-                        </span>
-                      </div>
-                    ))}
+                  <div className="flex  m-1 justify-between items-center">
+                    <div className="flex flex-wrap">
+                      {data.genres.map((g) => (
+                        <div key={g} className="m-[2px]">
+                          <span className=" rounded-full bg-blue-500 text-white p-1 text-[10px] ">
+                            {g}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                    <img
+                      src={trash}
+                      alt=""
+                      onClick={(e) => deleteBook(e, data.id)}
+                      className="cursor-pointer active:bg-slate-300"
+                    />
                   </div>
                 </div>
               </div>
