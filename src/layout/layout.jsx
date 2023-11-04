@@ -22,15 +22,17 @@ export const Layout = () => {
     <div className={` ${isDark ? "bg-dbg" : "bg-white"} `}>
       <Navbar />
 
-      <SwitchTransition>
-        <CSSTransition
-          timeout={200}
-          classNames={"fade"}
-          key={location.pathname}
-        >
-          <Outlet />
-        </CSSTransition>
-      </SwitchTransition>
+      <div className="">
+        <SwitchTransition>
+          <CSSTransition
+            timeout={200}
+            classNames={"fade"}
+            key={location.pathname}
+          >
+            <Outlet />
+          </CSSTransition>
+        </SwitchTransition>
+      </div>
     </div>
   );
 };

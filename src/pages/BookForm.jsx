@@ -1,6 +1,13 @@
 // import React from 'react'
 
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  doc,
+  getDoc,
+  serverTimestamp,
+  updateDoc,
+} from "firebase/firestore";
 import { useState } from "react";
 // import { useFetch } from "../hooks/useFetch";
 import { useEffect } from "react";
@@ -9,7 +16,7 @@ import { database } from "../firebase";
 import { useParams } from "react-router-dom";
 
 export const BookForm = () => {
-  let id = useParams();
+  let { id } = useParams();
 
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
@@ -17,11 +24,31 @@ export const BookForm = () => {
   const [file, setImgFile] = useState("");
   const [NewGenres, setNewGenres] = useState("");
   const [genres, setGenres] = useState([]);
-
+  const [isEdit, setIsEdit] = useState(false);
   // update
-  useEffect(function(){
+  useEffect(function () {
+    if (id) {
+      setIsEdit(true);
+      let ref = doc(database, "books", id);
+      getDoc(ref).then((doc) => {
+        if (doc.exists()) {
+          let { title, description, genres, file, author } = doc.data();
+          setTitle(title);
+          setDescription(description);
+          setGenres(genres);
+          setImgFile(file);
+          setAuthor(author);
+        } else {
+          setIsEdit(false);
+          setTitle("");
+          setImgFile("");
+          setGenres([]);
+          setAuthor("");
+        }
+      });
+    }
+  }, []);
 
-  },[id])
   const addGenres = () => {
     // client side
 
@@ -35,7 +62,7 @@ export const BookForm = () => {
   };
   let navigate = useNavigate();
 
-  const addBook = (e) => {
+  const submitForm = async (e) => {
     e.preventDefault();
     let item = {
       title,
@@ -45,14 +72,20 @@ export const BookForm = () => {
       genres,
       date: serverTimestamp(),
     };
-    let ref = collection(database, "books");
-    addDoc(ref, item);
+
+    if (isEdit) {
+      let ref = doc(database, "books", id);
+      await updateDoc(ref, item);
+    } else {
+      let ref = collection(database, "books");
+      await addDoc(ref, item);
+    }
     navigate("/");
   };
 
   return (
     <div className="h-screen">
-      <form className="max-w-lg mx-auto mt-5" onSubmit={addBook}>
+      <form className="max-w-lg mx-auto mt-5" onSubmit={submitForm}>
         <div className="grid grid-cols-1 space-y-1">
           {/* title */}
           <div className="w-96 px-1">
@@ -171,11 +204,13 @@ export const BookForm = () => {
                 />
               </svg>
 
-              <span className="hidden md:block">Add Book</span>
+              <span className="hidden md:block">
+                {isEdit ? "Update" : "Create Book"}
+              </span>
             </div>
           </button>
         </div>
-      </form>{" "}
+      </form>
     </div>
   );
 };

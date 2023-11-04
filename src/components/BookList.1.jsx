@@ -1,17 +1,13 @@
 import { Link } from "react-router-dom";
-import { useFetch } from "../hooks/useFetch";
 import trash from "../assets/delete.svg";
-// import edit from "../assets/edit.gif";
 import edit from "../assets/edit-book.svg";
 import { useLocation } from "react-router-dom";
 import { useTheme } from "../hooks/useTheme";
-import { transparent } from "tailwindcss/colors";
 import { useEffect } from "react";
 import {
   collection,
   deleteDoc,
   doc,
-  getDocs,
   onSnapshot,
   orderBy,
   query,
@@ -24,32 +20,40 @@ export const BookList = () => {
   let params = new URLSearchParams(location.search);
 
   let search = params.get("search");
- 
-  let [books, setBooks] = useState([]);
-  let [loading, setLoading] = useState(false);
-  let [error, setError] = useState("");
-
-  let deleteBook = async (e, id) => {
-    e.preventDefault();
-    let ref = doc(database, "books", id);
-    await deleteDoc(ref);
-  };
-  // setBooks((prev) => prev.filter((d) => d.id !== id));
+  // let url = `http://localhost:2801/books/${search ? `?q=${search}` : ""}`;
+  // const { data: books, loading, error } = useFetch(url);
+  const [books, setBooks] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   useEffect(function () {
     setLoading(true);
+    let books = [];
     let ref = collection(database, "books");
     let qry = query(ref, orderBy("date", "desc"));
-
+    // getDocs(qry).then((data) => {
+    //   if (data.empty) {
+    //     setError("No result found");
+    //     setLoading(false);
+    //   }
+    //   if (data.empty == false) {
+    //     data.forEach((d) => {
+    //       books.push({ id: d.id, ...d.data() });
+    //     });
+    //     setBooks(books);
+    //     setLoading(false);
+    //     setError("");
+    //   }
+    // });
+    // real time transition firebase
     onSnapshot(qry, (data) => {
       if (data.empty) {
         setError("No result found");
         setLoading(false);
-      } else {
-        let books = [];
-        data.forEach((docs) => {
-          let book = { id: docs.id, ...docs.data() };
-          books.push(book);
+      }
+      if (data.empty == false) {
+        data.forEach((d) => {
+          books.push({ id: d.id, ...d.data() });
         });
         setBooks(books);
         setLoading(false);
@@ -58,14 +62,18 @@ export const BookList = () => {
     });
   }, []);
 
+  const deleteBook = async (e, id) => {
+    e.preventDefault();
+    let ref = doc(database, "books", id);
+    await deleteDoc(ref);
+    setBooks((prev) => prev.filter((p) => p.id != id));
+  };
   let { isDark } = useTheme();
 
-  if (error) {
-    return <p>{error}</p>;
-  }
   return (
     <>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 my-2 ml-9">
+        {error && <div>{error}</div>}
         {loading && <div className="">Loading ...</div>}
         {!!books &&
           books.map((data) => (
@@ -92,10 +100,9 @@ export const BookList = () => {
                       ))}
                     </div>
                     <div className="flex space-x-2">
-                      <img src={edit} alt="">
-                        <Link to={`edit/${data.id}`} />
-                      </img>
-
+                      <Link to={`edit/${data.id}`}>
+                        <img src={edit} alt="" />
+                      </Link>
                       <img
                         src={trash}
                         alt=""
