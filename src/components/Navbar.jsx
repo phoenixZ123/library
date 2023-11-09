@@ -7,6 +7,7 @@ import { useContext } from "react";
 import { useTheme } from "../hooks/useTheme";
 import lightMode from "../assets/light.svg";
 import darkMode from "../assets/dark.svg";
+import { useSignout } from "../hooks/useSignout";
 
 export const Navbar = () => {
   const [search, setSearch] = useState("");
@@ -18,8 +19,13 @@ export const Navbar = () => {
     setSearch("");
   };
 
-  let { changeTheme, isDark } = useTheme();
+  let { logOut } = useSignout();
+  const signOutUser = async () => {
+    await logOut();
+    navigate("/login");
+  };
 
+  let { changeTheme, isDark } = useTheme();
   return (
     <nav
       className={` ${
@@ -135,6 +141,22 @@ export const Navbar = () => {
                   onClick={() => changeTheme("dark")}
                 />
               )}
+              {/* log out */}
+              <button
+                type="button"
+                onClick={signOutUser}
+                class="inline-block rounded-lg text-red-900 bg-red-300 px-2 pb-2 pt-2 mx-2 text-xs font-medium uppercase leading-normal shadow-[0_4px_9px_-4px_#dc4c64] transition duration-150 ease-in-out hover:bg-danger-600 hover:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.3),0_4px_18px_0_rgba(220,76,100,0.2)] focus:bg-danger-600 focus:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.3),0_4px_18px_0_rgba(220,76,100,0.2)] focus:outline-none focus:ring-0 active:bg-danger-700 active:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.3),0_4px_18px_0_rgba(220,76,100,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(220,76,100,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.2),0_4px_18px_0_rgba(220,76,100,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.2),0_4px_18px_0_rgba(220,76,100,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.2),0_4px_18px_0_rgba(220,76,100,0.1)]"
+              >
+                Log Out
+              </button>
+              <div>
+                <button class="inline-block rounded-lg text-amber-900  px-2 pb-2 pt-2 mx-2 text-xs font-medium uppercase leading-normal shadow-[0_4px_9px_-4px_#dc4c64] transition duration-150 ease-in-out hover:bg-danger-600 hover:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.3),0_4px_18px_0_rgba(220,76,100,0.2)] focus:bg-danger-600 focus:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.3),0_4px_18px_0_rgba(220,76,100,0.2)] focus:outline-none focus:ring-0 active:bg-danger-700 active:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.3),0_4px_18px_0_rgba(220,76,100,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(220,76,100,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.2),0_4px_18px_0_rgba(220,76,100,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.2),0_4px_18px_0_rgba(220,76,100,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.2),0_4px_18px_0_rgba(220,76,100,0.1)]">
+                  <Link to={`/register`}>Register</Link>
+                </button>
+                <button class="inline-block rounded-lg text-green-900  px-2 pb-2 pt-2 mx-2 text-xs font-medium uppercase leading-normal shadow-[0_4px_9px_-4px_#dc4c64] transition duration-150 ease-in-out hover:bg-danger-600 hover:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.3),0_4px_18px_0_rgba(220,76,100,0.2)] focus:bg-danger-600 focus:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.3),0_4px_18px_0_rgba(220,76,100,0.2)] focus:outline-none focus:ring-0 active:bg-danger-700 active:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.3),0_4px_18px_0_rgba(220,76,100,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(220,76,100,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.2),0_4px_18px_0_rgba(220,76,100,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.2),0_4px_18px_0_rgba(220,76,100,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.2),0_4px_18px_0_rgba(220,76,100,0.1)]">
+                  <Link to={`/login`}>Log In</Link>
+                </button>
+              </div>
             </div>
           </div>
         </div>
