@@ -12,39 +12,25 @@ import {
 } from "firebase/firestore";
 import { database } from "../firebase";
 import { useState } from "react";
+import useFirestore from "../hooks/useFirestore";
 
 export const BookDetail = () => {
   let { id } = useParams();
   // let url = `http://localhost:2801/books/${id}`;
   // const { data: book, loading, error } = useFetch(url);
-  const [book, setBook] = useState(null);
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+
   let navigate = useNavigate();
 
-  useEffect(() => {
-    if (error) {
-      setTimeout(() => {
-        navigate("/");
-      }, 1000);
-    }
-  }, [error, navigate]);
+  // useEffect(() => {
+  //   if (error) {
+  //     setTimeout(() => {
+  //       navigate("/");
+  //     }, 1000);
+  //   }
+  // }, [error, navigate]);
 
-  useEffect(() => {
-    setLoading(true);
-    let ref = doc(database, "books", id);
-    onSnapshot(ref, (dt) => {
-      if (dt.exists()) {
-        let book = { id: dt.id, ...dt.data() };
-        setBook(book);
-        setLoading(false);
-        setError("");
-      } else {
-        setError("No document found");
-        setLoading(false);
-      }
-    });
-  }, [id]);
+  let { getDocument } = useFirestore();
+  let { data: book, error, loading } = getDocument("books", id);
 
   let { isDark } = useTheme();
   return (

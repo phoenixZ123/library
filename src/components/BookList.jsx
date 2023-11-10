@@ -18,45 +18,23 @@ import {
 } from "firebase/firestore";
 import { database } from "../firebase";
 import { useState } from "react";
+import useFirestore from "../hooks/useFirestore";
+import { useNavigate } from "react-router-dom";
 
 export const BookList = () => {
   let location = useLocation();
   let params = new URLSearchParams(location.search);
-
   let search = params.get("search");
- 
-  let [books, setBooks] = useState([]);
-  let [loading, setLoading] = useState(false);
-  let [error, setError] = useState("");
 
+  let { getCollection, deleteDocument } = useFirestore();
+  let { error, data: books, loading } = getCollection("books");
+  let navigate = useNavigate();
   let deleteBook = async (e, id) => {
     e.preventDefault();
-    let ref = doc(database, "books", id);
-    await deleteDoc(ref);
+    await deleteDocument("books", id);
+    navigate("/");
   };
   // setBooks((prev) => prev.filter((d) => d.id !== id));
-
-  useEffect(function () {
-    setLoading(true);
-    let ref = collection(database, "books");
-    let qry = query(ref, orderBy("date", "desc"));
-
-    onSnapshot(qry, (data) => {
-      if (data.empty) {
-        setError("No result found");
-        setLoading(false);
-      } else {
-        let books = [];
-        data.forEach((docs) => {
-          let book = { id: docs.id, ...docs.data() };
-          books.push(book);
-        });
-        setBooks(books);
-        setLoading(false);
-        setError("");
-      }
-    });
-  }, []);
 
   let { isDark } = useTheme();
 

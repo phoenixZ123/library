@@ -14,6 +14,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { database } from "../firebase";
 import { useParams } from "react-router-dom";
+import useFirestore from "../hooks/useFirestore";
 
 export const BookForm = () => {
   let { id } = useParams();
@@ -70,17 +71,17 @@ export const BookForm = () => {
       description,
       file,
       genres,
-      date: serverTimestamp(),
     };
 
     if (isEdit) {
-      let ref = doc(database, "books", id);
-      await updateDoc(ref, item);
+      let { updateDocument } = useFirestore();
+      await updateDocument("books", item, id);
+      navigate("/");
     } else {
-      let ref = collection(database, "books");
-      await addDoc(ref, item);
+      let { addDocument } = useFirestore();
+      await addDocument("books", item);
+      navigate("/");
     }
-    navigate("/");
   };
 
   return (
