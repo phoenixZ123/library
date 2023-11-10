@@ -5,20 +5,23 @@ import { useState } from "react";
 import { useSignin } from "../hooks/useSignin";
 import reading from "../assets/reading.svg";
 import { Link } from "react-router-dom";
-export const Login = () => {
+
+export const Login = ({ name }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   let navigate = useNavigate();
   let { error, loading, signIn } = useSignin();
-
   const login = async (e) => {
     e.preventDefault();
     let user = await signIn(email, password);
-    navigate("/");
+
+    if (user) {
+      navigate("/");
+    }
   };
   let { isDark } = useTheme();
   return (
-    <div className={`${isDark ? "bg-sky-800" : "bg-gray-50"} `}>
+    <div className={`${isDark ? "bg-dbg" : "bg-gray-50"} `}>
       <div className="flex  flex-cols  justify-center px-6 py-8  md:h-screen lg:py-0">
         <div className="w-full  rounded-lg shadow-2xl md:mt-0 sm:max-w-md xl:p-0 ">
           <div className="p-6 space-y-2 md:space-y-2 md:p-3">
@@ -65,12 +68,14 @@ export const Login = () => {
               </div>
               <div className="flex items-center justify-between">
                 <div className="flex items-start"></div>
-                <a
-                  href="#"
-                  className="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500"
+                <Link
+                  to="/forgot"
+                  className={`${
+                    isDark ? "text-primary" : ""
+                  } block mb-2 text-sm font-medium  hover:underline`}
                 >
                   Forgot password?
-                </a>
+                </Link>
               </div>
               <button
                 type="submit"

@@ -7,37 +7,44 @@ import { BookDetail } from "../pages/BookDetail.jsx";
 import { Register } from "../pages/Register.jsx";
 import { Login } from "../pages/Login.jsx";
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Layout />,
-    children: [
-      {
-        path: "/",
-        element: <Home />,
-      },
-      {
-        path: "/create",
-        element: <BookForm />,
-      },
-      {
-        path: "/edit/:id",
-        element: <BookForm />,
-      },
-      {
-        path: "/books/:id",
-        element: <BookDetail />,
-      },
-      {
-        path: "/register",
-        element: <Register />,
-      },
-      {
-        path: "/login",
-        element: <Login />,
-      },
-    ],
-  },
-]);
+import React from "react";
+import { RouterProvider } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../Contexts/AuthContext.jsx";
 
-export default router;
+export default function index() {
+  let { authReady } = useContext(AuthContext);
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <Layout />,
+      children: [
+        {
+          path: "/",
+          element: <Home />,
+        },
+        {
+          path: "/create",
+          element: <BookForm />,
+        },
+        {
+          path: "/edit/:id",
+          element: <BookForm />,
+        },
+        {
+          path: "/books/:id",
+          element: <BookDetail />,
+        },
+        {
+          path: "/register",
+          element: <Register />,
+        },
+        {
+          path: "/login",
+          element: <Login />,
+        },
+      ],
+    },
+  ]);
+  return authReady && <RouterProvider router={router} />;
+}

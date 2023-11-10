@@ -16,7 +16,9 @@ export const Register = () => {
     let user = await signUp(email, password);
     setEmail("");
     setPassword("");
-    navigate("/login");
+    if (user) {
+      navigate("/login");
+    }
   };
 
   return (
@@ -149,7 +151,7 @@ export const Register = () => {
               </div>
 
               {/* <!-- register button --> */}
-              <div className="text-center lg:text-left">
+              <div className="text-center lg:text-left ">
                 <button
                   // should text submit not button cus if button not work at form
                   type="submit"
