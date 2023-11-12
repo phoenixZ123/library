@@ -41,7 +41,7 @@ export default function useFirestore() {
             setLoading(false);
           } else {
             let collectionDatas = [];
-            data.forEach((docs) => {
+            dt.forEach((docs) => {
               let document = { id: docs.id, ...docs.data() };
               collectionDatas.push(document);
             });

@@ -56,7 +56,7 @@ export const BookDetail = () => {
               {book.description}
             </div>
           </div>
-          <img src={book.image} alt="" className="w-[80%] h-[440px]" />
+          <img src={book.cover} alt="" className="w-[80%] h-[440px]" />
         </div>
       )}
     </div>

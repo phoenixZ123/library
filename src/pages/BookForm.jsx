@@ -12,14 +12,16 @@ import { useState } from "react";
 // import { useFetch } from "../hooks/useFetch";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { database } from "../firebase";
+import { database, storage } from "../firebase";
 import { useParams } from "react-router-dom";
 import useFirestore from "../hooks/useFirestore";
 import { AuthContext } from "../Contexts/AuthContext";
 import { useContext } from "react";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
 export const BookForm = () => {
   let { id } = useParams();
+  const { user } = useContext(AuthContext);
 
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
@@ -65,15 +67,25 @@ export const BookForm = () => {
     setNewGenres("");
   };
   let navigate = useNavigate();
-  const { user } = useContext(AuthContext);
 
+  let uploadFileToFirebase = async (file) => {
+    let uniFileName = Date.now().toString() + "_" + file.name;
+    let path = "/covers/" + user.uid + "/" + uniFileName;
+    // console.log(path);
+    let StorageRef = ref(storage, path);
+    let res = await uploadBytes(StorageRef, file);
+    // return url
+    return await getDownloadURL(StorageRef);
+  };
   const submitForm = async (e) => {
     e.preventDefault();
+    let url = await uploadFileToFirebase(file);
+    console.log(url);
     let item = {
       title,
       author,
       description,
-      file,
+      cover: url,
       genres,
       uid: user.uid,
     };
