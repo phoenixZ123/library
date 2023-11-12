@@ -15,6 +15,8 @@ import { useNavigate } from "react-router-dom";
 import { database } from "../firebase";
 import { useParams } from "react-router-dom";
 import useFirestore from "../hooks/useFirestore";
+import { AuthContext } from "../Contexts/AuthContext";
+import { useContext } from "react";
 
 export const BookForm = () => {
   let { id } = useParams();
@@ -22,10 +24,11 @@ export const BookForm = () => {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [description, setDescription] = useState("");
-  const [file, setImgFile] = useState("");
+  const [file, setImgFile] = useState(null);
   const [NewGenres, setNewGenres] = useState("");
   const [genres, setGenres] = useState([]);
   const [isEdit, setIsEdit] = useState(false);
+  const [preview, setPreview] = useState("");
   // update
   useEffect(function () {
     if (id) {
@@ -62,6 +65,7 @@ export const BookForm = () => {
     setNewGenres("");
   };
   let navigate = useNavigate();
+  const { user } = useContext(AuthContext);
 
   const submitForm = async (e) => {
     e.preventDefault();
@@ -71,19 +75,38 @@ export const BookForm = () => {
       description,
       file,
       genres,
+      uid: user.uid,
     };
 
     if (isEdit) {
       let { updateDocument } = useFirestore();
       await updateDocument("books", item, id);
-      navigate("/");
     } else {
       let { addDocument } = useFirestore();
       await addDocument("books", item);
-      navigate("/");
     }
+    navigate("/");
   };
 
+  const handlePhoto = (e) => {
+    setImgFile(e.target.files[0]);
+  };
+
+  // listen to photo upload
+
+  let handlePreviewImage = (file) => {
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+
+    reader.onload = () => {
+      setPreview(reader.result);
+    };
+  };
+  useEffect(() => {
+    if (file) {
+      handlePreviewImage(file);
+    }
+  }, [file]);
   return (
     <div className="h-screen">
       <form className="max-w-lg mx-auto mt-5" onSubmit={submitForm}>
@@ -177,14 +200,22 @@ export const BookForm = () => {
             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
               Choose book image
             </label>
-            <div className="flex items-center space-x-1">
+            <div className="">
               <input
-                value={file}
-                onChange={(e) => setImgFile(e.target.value)}
+                onChange={handlePhoto}
                 className="appearance-none block  w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-2 px-3 mb-1 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                 type="file"
                 placeholder=""
               />
+              {preview && (
+                <img
+                  src={preview}
+                  alt=""
+                  className="my-3"
+                  width={500}
+                  height={500}
+                />
+              )}
             </div>
           </div>
           {/* add book btn*/}

@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useReducer } from "react";
 import { createContext } from "react";
 import { auth } from "../firebase";
-export const AuthContext = createContext();
+const AuthContext = createContext();
 
 const AuthReducer = (state, action) => {
   switch (action.type) {
@@ -21,7 +21,7 @@ const AuthReducer = (state, action) => {
       return state;
   }
 };
-export const AuthContextProvider = ({ children }) => {
+export default function AuthContextProvider({ children }) {
   let [state, dispatch] = useReducer(AuthReducer, {
     user: null,
     authReady: false,
@@ -38,4 +38,6 @@ export const AuthContextProvider = ({ children }) => {
     });
   }, []);
   return <AuthContext.Provider value={state}>{children}</AuthContext.Provider>;
-};
+}
+
+export { AuthContext, AuthContextProvider };

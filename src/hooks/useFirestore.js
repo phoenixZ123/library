@@ -8,39 +8,51 @@ import {
   query,
   serverTimestamp,
   updateDoc,
+  where,
 } from "firebase/firestore";
 import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 import { database } from "../firebase";
+import { useRef } from "react";
 
 export default function useFirestore() {
-  let getCollection = (colName) => {
-    let [data, setData] = useState([]);
+  let getCollection = (colName, _q) => {
+    console.log(_q);
+    let qRef = useRef(_q).current;
+    let [data, setData] = useState(null);
     let [loading, setLoading] = useState(false);
     let [error, setError] = useState("");
 
-    useEffect(function () {
-      setLoading(true);
-      let ref = collection(database, colName);
-      let qry = query(ref, orderBy("date", "desc"));
-
-      onSnapshot(qry, (dt) => {
-        if (dt.empty) {
-          setError("No result found");
-          setLoading(false);
-        } else {
-          let collectionDatas = [];
-          data.forEach((docs) => {
-            let document = { id: docs.id, ...docs.data() };
-            collectionDatas.push(document);
-          });
-          setData(collectionDatas);
-          setLoading(false);
-          setError("");
+    useEffect(
+      function () {
+        setLoading(true);
+        let ref = collection(database, colName);
+        let queries = [];
+        if (qRef) {
+          queries.push(where(...qRef));
         }
-      });
-    }, []);
+        queries.push(orderBy("date", "desc"));
+        let qry = query(ref, ...queries);
+
+        onSnapshot(qry, (dt) => {
+          if (dt.empty) {
+            setError("No result found");
+            setLoading(false);
+          } else {
+            let collectionDatas = [];
+            data.forEach((docs) => {
+              let document = { id: docs.id, ...docs.data() };
+              collectionDatas.push(document);
+            });
+            setData(collectionDatas);
+            setLoading(false);
+            setError("");
+          }
+        });
+      },
+      [qRef]
+    );
     return { error, data, loading };
   };
   let getDocument = (colName, id) => {

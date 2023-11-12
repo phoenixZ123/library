@@ -18,8 +18,10 @@ import {
 } from "firebase/firestore";
 import { database } from "../firebase";
 import { useState } from "react";
-import useFirestore from "../hooks/useFirestore";
 import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../Contexts/AuthContext";
+import useFirestore from "../hooks/useFirestore";
 
 export const BookList = () => {
   let location = useLocation();
@@ -27,12 +29,19 @@ export const BookList = () => {
   let search = params.get("search");
 
   let { getCollection, deleteDocument } = useFirestore();
-  let { error, data: books, loading } = getCollection("books");
+  let { user } = useContext(AuthContext);
+  console.log(user);
+  let {
+    error,
+    data: books,
+    loading,
+  } = getCollection("books", ['uid', "==", user.uid]);
+
   let navigate = useNavigate();
+
   let deleteBook = async (e, id) => {
     e.preventDefault();
     await deleteDocument("books", id);
-    navigate("/");
   };
   // setBooks((prev) => prev.filter((d) => d.id !== id));
 
