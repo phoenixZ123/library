@@ -18,7 +18,7 @@ import { useRef } from "react";
 
 export default function useFirestore() {
   let getCollection = (colName, _q) => {
-    console.log(_q);
+    // console.log(_q);
     let qRef = useRef(_q).current;
     let [data, setData] = useState([]);
     let [loading, setLoading] = useState(false);

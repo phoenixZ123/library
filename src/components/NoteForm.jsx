@@ -20,7 +20,6 @@ export const NoteForm = () => {
     };
     await addDocument("notes", data);
     setBody("");
-    alert("saved");
   };
   return (
     <form onSubmit={addNote}>
