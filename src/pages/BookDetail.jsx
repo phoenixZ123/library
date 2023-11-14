@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import { useFetch } from "../hooks/useFetch";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import user from "../assets/user.png";
 import { useTheme } from "../hooks/useTheme";
 import {
   collection,
@@ -12,39 +13,27 @@ import {
 } from "firebase/firestore";
 import { database } from "../firebase";
 import { useState } from "react";
+import useFirestore from "../hooks/useFirestore";
+import { NoteForm } from "../components/NoteForm";
+import NoteList from "../components/NoteList";
 
 export const BookDetail = () => {
   let { id } = useParams();
   // let url = `http://localhost:2801/books/${id}`;
   // const { data: book, loading, error } = useFetch(url);
-  const [book, setBook] = useState(null);
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+
   let navigate = useNavigate();
 
-  useEffect(() => {
-    if (error) {
-      setTimeout(() => {
-        navigate("/");
-      }, 1000);
-    }
-  }, [error, navigate]);
+  // useEffect(() => {
+  //   if (error) {
+  //     setTimeout(() => {
+  //       navigate("/");
+  //     }, 1000);
+  //   }
+  // }, [error, navigate]);
 
-  useEffect(() => {
-    setLoading(true);
-    let ref = doc(database, "books", id);
-    onSnapshot(ref, (dt) => {
-      if (dt.exists()) {
-        let book = { id: dt.id, ...dt.data() };
-        setBook(book);
-        setLoading(false);
-        setError("");
-      } else {
-        setError("No document found");
-        setLoading(false);
-      }
-    });
-  }, [id]);
+  let { getDocument } = useFirestore();
+  let { data: book, error, loading } = getDocument("books", id);
 
   let { isDark } = useTheme();
   return (
@@ -52,26 +41,39 @@ export const BookDetail = () => {
       {loading && <div>Loading ...</div>}
 
       {book && (
-        <div className="grid grid-cols-2 sm:text-left md:ml-20" key={book.id}>
-          <div className="space-y-2">
-            <div className="  m-8 text-2xl font-bold text-slate-600 drop-shadow-xl shadow-red">
-              {book.title}
+        <>
+          <div
+            className="grid grid-cols-2 sm:text-left md:ml-20 text-center"
+            key={book.id}
+          >
+            <div className="space-y-2">
+              <div className="  m-8 text-2xl font-bold text-slate-600 drop-shadow-xl shadow-red">
+                {book.title}
+              </div>
+              <div className="flex">
+                {book.genres.map((g) => (
+                  <div key={g} className="m-[2px]">
+                    <span className=" rounded-full bg-blue-500 text-white p-1 text-[10px] ">
+                      {g}
+                    </span>
+                  </div>
+                ))}
+              </div>
+              <div className={`${isDark ? "text-white" : ""}`}>
+                {book.description}
+              </div>
             </div>
-            <div className="flex">
-              {book.genres.map((g) => (
-                <div key={g} className="m-[2px]">
-                  <span className=" rounded-full bg-blue-500 text-white p-1 text-[10px] ">
-                    {g}
-                  </span>
-                </div>
-              ))}
-            </div>
-            <div className={`${isDark ? "text-white" : ""}`}>
-              {book.description}
-            </div>
+            <img src={book.cover} alt="" className="w-[90%] h-[440px]" />
           </div>
-          <img src={book.image} alt="" className="w-[80%] h-[440px]" />
-        </div>
+          <div>
+            <h3 className="text-xl text-primary font-bold my-3 text-center">
+              my notes
+            </h3>
+            {/* note component */}
+            <NoteForm />
+            <NoteList />
+          </div>
+        </>
       )}
     </div>
   );

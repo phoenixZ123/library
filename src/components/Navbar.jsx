@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import user from "../assets/user.png";
+import userLogin from "../assets/user.png";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -7,6 +7,9 @@ import { useContext } from "react";
 import { useTheme } from "../hooks/useTheme";
 import lightMode from "../assets/light.svg";
 import darkMode from "../assets/dark.svg";
+import { useSignout } from "../hooks/useSignout";
+import { AuthContext } from "../Contexts/AuthContext";
+import { Login } from "../pages/Login";
 
 export const Navbar = () => {
   const [search, setSearch] = useState("");
@@ -18,8 +21,18 @@ export const Navbar = () => {
     setSearch("");
   };
 
+  let { logOut } = useSignout();
+  
+  const signOutUser = async () => {
+    await logOut();
+    navigate("/login");
+  };
+  // auth con
+  const { user } = useContext(AuthContext);
+
   let { changeTheme, isDark } = useTheme();
 
+  
   return (
     <nav
       className={` ${
@@ -116,7 +129,7 @@ export const Navbar = () => {
               </NavLink>
             </button>
             <div>
-              <img src={user} className="w-8 h-8" alt="" />
+              <img src={userLogin} className="w-8 h-8" alt="" />
             </div>
             <div className="flex mx-1">
               {isDark && (
@@ -134,6 +147,36 @@ export const Navbar = () => {
                   className="w-5 cursor-pointer"
                   onClick={() => changeTheme("dark")}
                 />
+              )}
+              <div>
+                {!user && (
+                  <>
+                    <Link
+                      to={`/login`}
+                      className="inline-block border-2 border-green-400 rounded-lg text-green-900  px-2 pb-2 pt-2 mx-2 text-xs font-medium uppercase leading-normal shadow-[0_4px_9px_-4px_#dc4c64] transition duration-150 ease-in-out hover:bg-danger-600 hover:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.3),0_4px_18px_0_rgba(220,76,100,0.2)] focus:bg-danger-600 focus:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.3),0_4px_18px_0_rgba(220,76,100,0.2)] focus:outline-none focus:ring-0 active:bg-danger-700 active:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.3),0_4px_18px_0_rgba(220,76,100,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(220,76,100,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.2),0_4px_18px_0_rgba(220,76,100,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.2),0_4px_18px_0_rgba(220,76,100,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.2),0_4px_18px_0_rgba(220,76,100,0.1)]"
+                    >
+                      Log In
+                    </Link>
+                    <Link
+                      to={`/register`}
+                      className="inline-block border-2 border-red-400 font-bold rounded-lg text-amber-900  px-2 pb-2 pt-2 mx-2 text-xs uppercase leading-normal shadow-[0_4px_9px_-4px_#dc4c64] transition duration-150 ease-in-out hover:bg-danger-600 hover:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.3),0_4px_18px_0_rgba(220,76,100,0.2)] focus:bg-danger-600 focus:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.3),0_4px_18px_0_rgba(220,76,100,0.2)] focus:outline-none focus:ring-0 active:bg-danger-700 active:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.3),0_4px_18px_0_rgba(220,76,100,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(220,76,100,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.2),0_4px_18px_0_rgba(220,76,100,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.2),0_4px_18px_0_rgba(220,76,100,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.2),0_4px_18px_0_rgba(220,76,100,0.1)]"
+                    >
+                      Register
+                    </Link>
+                  </>
+                )}
+              </div>
+              {/* log out */}
+              {!!user && (
+                <>
+                  <button
+                    type="button"
+                    onClick={signOutUser}
+                    className="inline-block rounded-lg border-2 border-red-500 text-red-200 px-2  bg-red-700 py-1 mx-2 text-sm font-medium uppercase shadow-[0_4px_9px_-4px_#dc4c64] transition duration-150 ease-in-out hover:bg-danger-600 hover:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.3),0_4px_18px_0_rgba(220,76,100,0.2)] focus:bg-danger-600 focus:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.3),0_4px_18px_0_rgba(220,76,100,0.2)] focus:outline-none focus:ring-0 active:bg-danger-700 active:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.3),0_4px_18px_0_rgba(220,76,100,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(220,76,100,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.2),0_4px_18px_0_rgba(220,76,100,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.2),0_4px_18px_0_rgba(220,76,100,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.2),0_4px_18px_0_rgba(220,76,100,0.1)]"
+                  >
+                    Log Out
+                  </button>
+                </>
               )}
             </div>
           </div>
