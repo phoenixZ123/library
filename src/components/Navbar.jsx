@@ -22,6 +22,7 @@ export const Navbar = () => {
   };
 
   let { logOut } = useSignout();
+  
   const signOutUser = async () => {
     await logOut();
     navigate("/login");

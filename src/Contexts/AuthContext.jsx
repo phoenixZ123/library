@@ -4,8 +4,8 @@ import { useEffect } from "react";
 import { useReducer } from "react";
 import { createContext } from "react";
 import { auth } from "../firebase";
-const AuthContext = createContext();
 
+const AuthContext = createContext();
 const AuthReducer = (state, action) => {
   switch (action.type) {
     case "log_in": {

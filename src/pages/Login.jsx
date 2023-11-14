@@ -6,7 +6,7 @@ import { useSignin } from "../hooks/useSignin";
 import reading from "../assets/reading.svg";
 import { Link } from "react-router-dom";
 
-export const Login = ({ name }) => {
+export const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   let navigate = useNavigate();
