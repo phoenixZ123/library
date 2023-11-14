@@ -2,8 +2,8 @@ import { useParams } from "react-router-dom";
 import { useFetch } from "../hooks/useFetch";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import { useTheme } from "../hooks/useTheme";
 import user from "../assets/user.png";
+import { useTheme } from "../hooks/useTheme";
 import {
   collection,
   doc,
@@ -14,6 +14,8 @@ import {
 import { database } from "../firebase";
 import { useState } from "react";
 import useFirestore from "../hooks/useFirestore";
+import { NoteForm } from "../components/NoteForm";
+import NoteList from "../components/NoteList";
 
 export const BookDetail = () => {
   let { id } = useParams();
@@ -67,31 +69,9 @@ export const BookDetail = () => {
             <h3 className="text-xl text-primary font-bold my-3 text-center">
               my notes
             </h3>
-            <textarea
-              name=""
-              id=""
-              cols="30"
-              rows="5"
-              className="bg-gray-50 w-[80%] mx-auto md:ml-20 shadow-md border-2 p-3"
-            ></textarea>
-            <div className="ml-20 border-2 shadow-md p-3 w-[90%]">
-              <div>
-                <div className="flex space-x-3">
-                  <img src={user} alt="" className="h-12 w-12" />
-                  <div>
-                    <h3>ppw</h3>
-                    <div className="text-gray-400">20.4.2021</div>
-                  </div>
-                </div>
-
-                <div className="mt-3">
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                  Deleniti velit molestiae hic, deserunt perspiciatis, veritatis
-                  odit aut placeat officiis ipsam quasi eligendi nemo fugiat!
-                  Culpa corporis odio debitis ea deleniti?
-                </div>
-              </div>
-            </div>
+            {/* note component */}
+            <NoteForm />
+            <NoteList />
           </div>
         </>
       )}
