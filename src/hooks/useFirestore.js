@@ -86,8 +86,11 @@ export default function useFirestore() {
     let ref = doc(database, colName, id);
     return deleteDoc(ref);
   };
-  let updateDocument = async (colName, item, id) => {
-    item.date = serverTimestamp();
+  let updateDocument = async (colName, item, id, updateDate = true) => {
+    if (updateDate == true) {
+      item.date = serverTimestamp();
+    }
+
     let ref = doc(database, colName, id);
     return updateDoc(ref, item);
   };
